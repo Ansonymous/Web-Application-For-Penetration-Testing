@@ -5,6 +5,7 @@ DPI902 Penetration Testing Web Page
 - Download web application - mysenecaid.cgi
 - Install Python and Apache
 - Edit Apache confifuration file for access cgi-bin folder
+- Place login.cgi and mysenecaid.cgi into CGI file location
 
 
 # Local host web page Link
