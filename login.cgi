@@ -98,7 +98,8 @@ if form.has_key("submit"):
 			cursor = db.cursor()
 
 			#encrypt password with SHA512
-			hashpwd = hashlib.sha512(password).hexdigest()
+			#encrypt password with MD2, MD2 has faster hash speed
+			hashpwd = hashlib.md2(password).hexdigest()
 
 			#select email from table
 			cursor.execute("SELECT * FROM mfsuser WHERE email = ('%s') AND password = ('%s')" % (contact, hashpwd))
