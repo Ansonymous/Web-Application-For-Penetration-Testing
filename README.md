@@ -1,12 +1,12 @@
 # DPI902
 DPI902 Penetration Testing Web Page
 
-#!/bin/sh
-sudo cp login.php /usr/lib/cgi-bin
-echo 'Copied login.php to /usr/lib/cgi-bin/login.php'
-sudo cp mysenecaid.cgi /usr/lib/cgi-bin
-echo 'Copied mysenecaid.cgi to /usr/lib/cgi-bin/mysenecaid.cgi'
-firefox localhost/cgi-bin/mysenecaid.cgi
+#!/bin/sh  
+sudo cp login.php /usr/lib/cgi-bin  
+echo 'Copied login.php to /usr/lib/cgi-bin/login.php'  
+sudo cp mysenecaid.cgi /usr/lib/cgi-bin  
+echo 'Copied mysenecaid.cgi to /usr/lib/cgi-bin/mysenecaid.cgi'  
+firefox localhost/cgi-bin/mysenecaid.cgi  
 
 
 
@@ -30,13 +30,13 @@ http://localhost/cgi-bin/mysenecaid.cgi
 /etc/apache2/apache2.conf
 
 # Add CGI into Apache configuration
-ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
-<Directory /usr/lib/cgi-bin>
-Options +ExecCGI
-AddHandler cgi-script .cgi .py
-Options FollowSymLinks
-Require all granted
-</Directory>
+ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/  
+<Directory /usr/lib/cgi-bin>  
+Options +ExecCGI  
+AddHandler cgi-script .cgi .py  
+Options FollowSymLinks  
+Require all granted  
+</Directory>  
 
 # Enable script modules
 sudo a2enmod cgi
