@@ -32,7 +32,7 @@ def displayform(contact, contactErr,password, passwordErr):
 <tr>
 <td>Password</td><td><input type="password" placeholder="Enter Password" name="password" value="%s" required><font color="red">%s</font></td>
 </tr>
-<td></td><td><input type="submit" name="submit" value="Login"/>
+<td></td><td><input type="submit" name="submit" value="Login"/> <a href="registration.cgi">Registration</a></td>
 </table>
 </form>
 </body>
@@ -44,8 +44,8 @@ def displayform(contact, contactErr,password, passwordErr):
 def email(firstname,lastname,contact):
 	#create a confirmation text message using dictionary
 	msg = MIMEText("Firstname %s\nLastname %s\nEmail %s" % (firstname, lastname, contact))
-	msg['Subject'] = 'Confirmation , You has registered MyFaceSpace'
-	msg['From'] = "MyFaceSpace"
+	msg['Subject'] = 'Confirmation , You has registered Penetration'
+	msg['From'] = "Penetration"
 	msg['To'] = "wk@localhost"
 	#send the message via own SMTP server
 	s = smtplib.SMTP()
@@ -98,15 +98,18 @@ if form.has_key("submit"):
 			cursor = db.cursor()
 
 			#encrypt password with SHA512
-			#encrypt password with MD2, MD2 has faster hash speed
-			hashpwd = hashlib.md2(password).hexdigest()
+			hashpwd = hashlib.sha512(password).hexdigest()
 
 			#select email from table
 			cursor.execute("SELECT * FROM mfsuser WHERE email = ('%s') AND password = ('%s')" % (contact, hashpwd))
 			#commit changes in the database
 			db.commit()
-			print("<body style='background-color:powderblue;'><h1 style='text-align:center;'>Welcome to Penetration Testing!</h1></body>")
-			print "<p style='text-align:center;'>Logged in Email - " + contact + "</p>"
+			print'''<body style='background-color:powderblue;'><h1 style='text-align:center;'>Welcome to Penetration Testing!</h1><br><br>
+<form action="" id="usrform">
+<b>Email</b> %s
+<br><br><textarea rows="4" cols="50" name="comment" form="usrform">Enter comment here...</textarea>
+<input type="submit" name="send" value="Send">
+</form></body>''' % (contact)
 
 			exit()
 			#close database
