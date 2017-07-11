@@ -57,10 +57,10 @@ def displayform(firstname, firstnameErr, lastname, lastnameErr, contact, contact
 <td>Last name</td><td><input type="text" name="lastname" value="%s"/><font color="red">%s</font></td>
 </tr>
 <tr>
-<td>Email or mobile number</td><td><input type="text" name="contact" value="%s"/><font color="red">%s</font></td>
+<td>Email</td><td><input type="text" name="contact" value="%s"/><font color="red">%s</font></td>
 </tr>
 <tr>
-<td>Re-enter email or mobile number</td><td><input type="text" name="match" value="%s"/><font color="red">%s</font</td>
+<td>Re-enter email</td><td><input type="text" name="match" value="%s"/><font color="red">%s</font</td>
 </tr>
 <tr>
 <td>Password</td><td><input type="password" name="password" value="%s"/><font color="red">%s</font</td>
@@ -205,9 +205,11 @@ if form.has_key("submit"):
 			#commit changes in the database
 			db.commit()
 			print("<h3>Congratulations, you are registered!</h3>")
+			print("<a href='login.cgi'>Click to Login</a>")
+			
 			#send email after registered
 			email(firstname,lastname,contact)
-
+			
 			exit()
 			#close database
 			db.close()
