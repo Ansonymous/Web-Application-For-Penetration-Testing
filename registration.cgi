@@ -104,8 +104,8 @@ def displayform(firstname, firstnameErr, lastname, lastnameErr, contact, contact
 def email(firstname,lastname,contact):
 	#create a confirmation text message using dictionary
 	msg = MIMEText("Firstname %s\nLastname %s\nEmail %s" % (firstname, lastname, contact))
-	msg['Subject'] = 'Confirmation , You has registered MyFaceSpace'
-	msg['From'] = "MyFaceSpace"
+	msg['Subject'] = 'Confirmation , You has registered Penetration'
+	msg['From'] = "Penetration"
 	msg['To'] = "wk@localhost"
 	#send the message via own SMTP server
 	s = smtplib.SMTP()
@@ -167,11 +167,11 @@ if form.has_key("submit"):
         #validation for match
         if not re.match("^[^\-_.][A-Za-z\d\-\.\_]*@[A-Za-z\d\-\.\_]{1,}.[A-Za-z]{2,}$", match):
                 valid = False
-                matchErr = "Does not match with email or mobile phone"
+                matchErr = "Does not match with email"
 	#see if re-enter email same with email
 	if not match == contact:
 		valid = False
-		matchErr = "Does not match with email or mobile phone"
+		matchErr = "Does not match with email"
 	#validation for birthday
 	if birthday_year == "0":
 		valid = False
