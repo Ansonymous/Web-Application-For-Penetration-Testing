@@ -17,8 +17,16 @@ contactErr = ""
 passwordErr = ""
 valid = True
 
+def mainpage(contact, contactErr, password, passwordErr):
+	print'''<body style='background-color:powderblue;'><h1 style='text-align:center;'>Welcome to Penetration Testing!</h1><br><br>
+<form action="" id="usrform">
+<textarea rows="4" cols="50" name="comment" form="usrform">Enter comment here...</textarea>
+<input type="submit" name="send" value="Send">
+</form></body>'''
+
+
 #display input form and print error messages if invalid
-def displayform(contact, contactErr,password, passwordErr):
+def displayform(contact, contactErr, password, passwordErr):
 	print '''
 <!DOCTYPE html>
 <html>
@@ -27,34 +35,17 @@ def displayform(contact, contactErr,password, passwordErr):
 <form method="post" action="">
 <table>
 <tr>
-<td>Email or mobile number</td><td><input type="text" placeholder="Enter Email" name="contact" value="%s" required><font color="red">%s</font></td>
+<td>Email</td><td><input type="text" placeholder="Enter Email" name="contact" value="%s" required><font color="red">%s</font></td>
 </tr>
 <tr>
 <td>Password</td><td><input type="password" placeholder="Enter Password" name="password" value="%s" required><font color="red">%s</font></td>
 </tr>
-<td></td><td><input type="submit" name="submit" value="Login"/> <a href="registration.cgi">Registration</a></td>
+<td></td><td><input type="submit" name="submit" value="Login"/><a href="registration.cgi">Registration</a></td>
 </table>
 </form>
 </body>
 </html>
 ''' % (contact, contactErr, password, passwordErr)
-
-
-#send an confirmation email once registered
-def email(firstname,lastname,contact):
-	#create a confirmation text message using dictionary
-	msg = MIMEText("Firstname %s\nLastname %s\nEmail %s" % (firstname, lastname, contact))
-	msg['Subject'] = 'Confirmation , You has registered Penetration'
-	msg['From'] = "Penetration"
-	msg['To'] = "wk@localhost"
-	#send the message via own SMTP server
-	s = smtplib.SMTP()
-	#connect to servver
-	s.connect()
-	#send email
-	s.sendmail("wk@localhost", "wk@localhost", msg.as_string())
-	#close connection
-	s.quit()
 
 #if submit botton is clicked
 if form.has_key("submit"):
@@ -97,19 +88,19 @@ if form.has_key("submit"):
 			db = MySQLdb.connect(host, user, passwd, db)
 			cursor = db.cursor()
 
-			#encrypt password with SHA512
-			hashpwd = hashlib.sha512(password).hexdigest()
-
+			#encrypt password with MD5
+			hashpwd = hashlib.md5(password).hexdigest()
 			#select email from table
-			cursor.execute("SELECT * FROM mfsuser WHERE email = ('%s') AND password = ('%s')" % (contact, hashpwd))
+			cursor.execute("SELECT email FROM mfsuser where email = ('%s') AND password = ('%s')" % (contact, hashpwd))
+			result = cursor.fetchall()
+			print "Email - " + result[0][0]
 			#commit changes in the database
 			db.commit()
-			print'''<body style='background-color:powderblue;'><h1 style='text-align:center;'>Welcome to Penetration Testing!</h1><br><br>
-<form action="" id="usrform">
-<b>Email</b> %s
-<br><br><textarea rows="4" cols="50" name="comment" form="usrform">Enter comment here...</textarea>
-<input type="submit" name="send" value="Send">
-</form></body>''' % (contact)
+		
+			if result[0][0] == contact:
+				mainpage(contact, contactErr, password, passwordErr)
+			else:
+				print "Invalid Email or Password"
 
 			exit()
 			#close database
