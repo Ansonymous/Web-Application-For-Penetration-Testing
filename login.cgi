@@ -15,14 +15,58 @@ contact = ""
 password = ""
 contactErr = ""
 passwordErr = ""
+com = ""
 valid = True
 
-def mainpage(contact, contactErr, password, passwordErr):
-	print'''<body style='background-color:powderblue;'><h1 style='text-align:center;'>Welcome to Penetration Testing!</h1><br><br>
-<form action="" id="usrform">
-<textarea rows="4" cols="50" name="comment" form="usrform">Enter comment here...</textarea>
+def mainpage(com, email):
+	print'''
+<!DOCTYPE html>
+<html>
+<body style='background-color:powderblue;'><h1 style='text-align:center;'>Welcome to Penetration Testing!</h1><br><br>
+<form method="get" action="">
+<textarea rows="4" cols="50" name="com" placeholder="Enter comment here..." value="%s"></textarea>
 <input type="submit" name="send" value="Send">
-</form></body>'''
+<p><b>Warning !!</b> Comment box is currently not available</p>
+</form>
+</body>
+</html>''' % (com)
+
+
+if form.has_key("send"):
+	com = form.getvalue('com')
+	
+	if com == None:
+		com = ""
+
+	if valid:
+		try:
+		#read host, user, password, database from topsecret file
+			fin = open("/home/assign2/secret/topsecret", "r")
+			dhconinfo = fin.read()
+			host, user, passwd, db = dhconinfo.strip("\n").split("\n")
+	
+		except IOError:
+			#show error if could'nt read topsecret file
+			print "Cannot open file"
+			exit()
+
+		try:
+			#connect to Mysql database
+			db = MySQLdb.connect(host, user, passwd, db)
+			cursor = db.cursor()	
+
+			cursor.execute("INSERT INTO comment VALUES ('%s')" % (com))
+			print "Comment '" + com + "' is inserted into database"
+			db.commit()
+			
+			exit()
+			#close database
+			db.close()
+					
+		except MySQLdb.Error, e:
+			#print error message for duplicate email	
+			
+			exit()
 
 
 #display input form and print error messages if invalid
@@ -32,7 +76,7 @@ def displayform(contact, contactErr, password, passwordErr):
 <html>
 <body style="background-color:powderblue;">
 <h2>Penetration Testing Login</h2><br>
-<form method="post" action="">
+<form method="get" action="">
 <table>
 <tr>
 <td>Email</td><td><input type="text" placeholder="Enter Email" name="contact" value="%s" required><font color="red">%s</font></td>
@@ -93,14 +137,17 @@ if form.has_key("submit"):
 			#select email from table
 			cursor.execute("SELECT email FROM mfsuser where email = ('%s') AND password = ('%s')" % (contact, hashpwd))
 			result = cursor.fetchall()
-			print "Email - " + result[0][0]
+			print "Logged Email : " + result[0][0]
 			#commit changes in the database
 			db.commit()
 		
 			if result[0][0] == contact:
-				mainpage(contact, contactErr, password, passwordErr)
+				#Main page
+				mainpage(com)
 			else:
-				print "Invalid Email or Password"
+				displayform(contact, contactErr,password, passwordErr)
+				print "contact : " + contact
+				print "result : " + result[0][0]
 
 			exit()
 			#close database
