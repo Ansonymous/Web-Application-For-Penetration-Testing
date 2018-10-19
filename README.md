@@ -1,4 +1,4 @@
-# Web penetration testing
+# Web Penetration Testing
 This is a web penetration testing application with registration system and login system. Used for school project purposes. 
 Contributed by Anson Tan
 
