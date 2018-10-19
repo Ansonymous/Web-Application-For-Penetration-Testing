@@ -1,12 +1,12 @@
-# DPI902
-DPI902 Penetration Testing Web Page
+# Web penetration testing
+This is a web penetration testing application with registration system and login system. Used for school project purposes. 
+Contributed by Anson Tan
 
 # Installation
 - Download web application - mysenecaid.cgi
 - Install Python and Apache
 - Edit Apache confifuration file for access cgi-bin folder
 - Place login.cgi and mysenecaid.cgi into CGI file location
-
 
 # Local host web page Link
 http://localhost/cgi-bin/mysenecaid.cgi
