@@ -3,7 +3,7 @@ This is a web penetration testing application with registration system and login
 Contributed by Anson Tan
 
 # Installation
-- Download web application - mysenecaid.cgi
+- Download web application - registration.cgi and login.cgi
 - Install Python and Apache
 - Edit Apache confifuration file for access cgi-bin folder
 - Place login.cgi and mysenecaid.cgi into CGI file location
