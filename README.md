@@ -6,7 +6,7 @@ Contributed by Anson Tan
 - Download web application - registration.cgi and login.cgi
 - Install Python and Apache
 - Edit Apache confifuration file for access cgi-bin folder
-- Place login.cgi and mysenecaid.cgi into CGI file location
+- Place login.cgi and registration.cgi into CGI file location
 
 # Local host web page Link
 http://localhost/cgi-bin/registration.cgi
