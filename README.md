@@ -9,7 +9,7 @@ Contributed by Anson Tan
 - Place login.cgi and mysenecaid.cgi into CGI file location
 
 # Local host web page Link
-http://localhost/cgi-bin/mysenecaid.cgi
+http://localhost/cgi-bin/registration.cgi
 
 # HTML web page location
 /var/www
